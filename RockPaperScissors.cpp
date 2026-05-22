@@ -51,6 +51,10 @@ int main() {
 		}
 		else {
 			cout << "Enter one of the numerals listed.\n\n";
+			if (cin.fail()) {
+				cin.clear();
+				cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			}
 		}
 	}
 	return 0;
