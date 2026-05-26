@@ -9,51 +9,51 @@
 #include <iostream>
 using namespace std;
 
-int getPlayerChoice(int winsByPlayer, int winsByComputer, int ties) {
+int getPlayerChoice(int score[]) {
 	int playerChoice;
 	cout << "Let's play Rock Paper Scissors!\n\n"
-			"Player: " << winsByPlayer << "\n"
-			"Computer: " << winsByComputer << "\n"
-			"Ties: " << ties << "\n\n"
-			"Options:\n"
-			"1. Rock\n"
-			"2. Paper\n"
-			"3. Scissors\n"
-			"4. Quit Game\n"
-			"Choose an option: ";
+		"Player: " << score[0] << "\n"
+		"Computer: " << score[1] << "\n"
+		"Ties: " << score[2] << "\n\n"
+		"Options:\n"
+		"1. Rock\n"
+		"2. Paper\n"
+		"3. Scissors\n"
+		"4. Quit Game\n"
+		"Choose an option: ";
 	cin >> playerChoice;
 	return playerChoice;
 }
 
+void playGame(int playerChoice, int(&score)[]) {
+	int computerChoice = (rand() % 3) + 1;
+	int difference = playerChoice - computerChoice;
+	if (difference == 0) {
+		cout << "\nIt's a tie!\n\n";
+		score[2] += 1;
+	}
+	else if (difference == 1 || difference == -2) {
+		cout << "\nYou Win!\n\n";
+		score[0] += 1;
+	}
+	else if (difference == -1 || difference == 2) {
+		cout << "\nI Win!\n\n";
+		score[1] += 1;
+	}
+}
+
 int main() {
-	int winsByPlayer = 0;
-	int winsByComputer = 0;
-	int ties = 0;
+	int score[3] = { 0, 0, 0 };
 	int playerChoice = 0;
-	int computerChoice = 0;
 	int difference = 0;
 	bool isGoing = true;
 	while (isGoing) {
-		playerChoice = getPlayerChoice(winsByPlayer, winsByComputer, ties);
+		playerChoice = getPlayerChoice(score);
 		if (playerChoice == 4) {
 			isGoing = false;
 		}
-		else if (playerChoice <=3 && playerChoice >= 1) {
-			computerChoice = (rand() % 3) + 1;
-			difference = playerChoice - computerChoice;
-			if (difference == 0) {
-				cout << "\nIt's a tie!\n\n";
-				ties += 1;
-			}
-			else if (difference == 1 || difference == -2) {
-				cout << "\nYou Win!\n\n";
-				winsByPlayer += 1;
-			}
-			else if (difference == -1 || difference == 2) {
-				cout << "\nI Win!\n\n";
-				winsByComputer += 1;
-			}
-
+		else if (playerChoice <= 3 && playerChoice >= 1) {
+			playGame(playerChoice, score);
 		}
 		else {
 			cout << "Enter one of the numerals listed.\n\n";
