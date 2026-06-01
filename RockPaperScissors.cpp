@@ -28,6 +28,9 @@ int getPlayerChoice(int score[]) {
 void playGame(int playerChoice, int(&score)[]) {
 	int computerChoice = (rand() % 3) + 1;
 	int difference = playerChoice - computerChoice;
+	string choices[3] = { "rock", "paper", "scissors" };
+	cout << "\nYou chose " << choices[playerChoice - 1] << ".\n"
+		<< "I chose " << choices[computerChoice - 1] << ".\n";
 	if (difference == 0) {
 		cout << "\nIt's a tie!\n\n";
 		score[2] += 1;
@@ -45,7 +48,6 @@ void playGame(int playerChoice, int(&score)[]) {
 int main() {
 	int score[3] = { 0, 0, 0 };
 	int playerChoice = 0;
-	int difference = 0;
 	bool isGoing = true;
 	while (isGoing) {
 		playerChoice = getPlayerChoice(score);
